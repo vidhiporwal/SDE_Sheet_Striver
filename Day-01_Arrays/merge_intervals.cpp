@@ -4,19 +4,22 @@
 
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> results;
-        // sort on the basis of the start value
-        sort(intervals.begin(), intervals.end());
+    vector<vector<int>> merge(vector<vector<int>>& in) {
+        sort(in.begin(),in.end());
+        vector<vector<int>>a;
+        vector<int>t=in[0];
         
-        for(auto &interval : intervals) {
-            // no common point: add the interval without merging
-            if(results.empty() || interval[0] > results.back()[1])
-                results.push_back(interval);
-            else 
-            // interval can be merged, update the ending value of the latest added interval
-                results.back()[1] = max(results.back()[1], interval[1]);
+        for(auto it: in)
+        {
+            if(it[0]<=t[1])
+                t[1]=max(t[1],it[1]);
+            else
+            {
+                a.push_back(t);
+                t=it;
+            }
         }
-        return results;
+        a.push_back(t);
+        return a;
     }
 };
