@@ -1,29 +1,28 @@
-/*
-    Problem Link: https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
-*/
-
-vector<int> bfsOfGraph(int V, vector<int> adj[]) {
-    // all nodes are initially not visited
-    vector<bool> visited(V, false);
-    vector<int> results;
-    queue<int> q;
-    // push the source node in the queue
-    q.push(0);
-    // mark the source node as visited
-    visited[0] = true;
-
-    while(!q.empty()) {
-        int front = q.front();
-        q.pop();
-        results.push_back(front);
-        // find the unvisited neighbours and add them in the queue
-        for(int &nbr : adj[front]) {
-            if(!visited[nbr]) {
-                q.push(nbr);
-                // mark the nbr as visited 
-                visited[nbr] = true;
-            }
+vector<int> bfs(int v,vector<int>adj)
+{
+    vector<int>a;
+    vector<int>vis(v+1,0);
+    
+    for(int i=1;i<=v;i++)
+    {
+        queue<int>q;
+        if(!vis[i])
+        {
+            q.push(i);
+            vis[i]=1;
+        while(!q.empty())
+        {
+            int n=q.front();
+             q.pop();
+            a.push_back(n);
+           for(auto it:adj)
+           {
+               if(!vis[it])
+               {
+                   q.push(it);
+                   vis[it]=1;
+               }
+           }
         }
     }
-    return results;
-} 
+}
